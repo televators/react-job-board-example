@@ -1,13 +1,23 @@
 import React from 'react';
-import { useParams, useLoaderData, Link } from 'react-router-dom';
+import { useParams, useLoaderData, Link, useNavigate } from 'react-router-dom';
 import { FaArrowLeft, FaMapMarker } from 'react-icons/fa';
 
-const JobPage = () => {
+const JobPage = ({ deleteJob }) => {
+  const navigate = useNavigate();
   const { id } = useParams();
   const job = useLoaderData();
   // NOTE: useEffect version for practice.
   // const [job, setJob] = useState(null);
   // const [loading, setLoading] = useState(true);
+
+  const onDeleteClick = async (jobID) => {
+    const confirm = window.confirm('Are you sure you want to delete this job?');
+
+    if (!confirm) return;
+
+    deleteJob(jobID);
+    navigate('/jobs');
+  };
 
   //#region NOTE: useEffect version for practice.
   // useEffect(() => {
@@ -88,7 +98,9 @@ const JobPage = () => {
                   className='bg-indigo-500 hover:bg-indigo-600 text-white text-center font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block'>
                   Edit Job
                 </Link>
-                <button className='bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block'>
+                <button
+                  onClick={() => onDeleteClick(job.id)}
+                  className='bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block'>
                   Delete Job
                 </button>
               </div>
