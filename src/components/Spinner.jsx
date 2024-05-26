@@ -1,18 +1,18 @@
 import React from 'react';
-import { ClipLoader } from 'react-spinners';
+import { PulseLoader } from 'react-spinners';
 
 const override = {
   display: 'block',
   margin: '100px auto',
+  textAlign: 'center',
 };
 
 const Spinner = ( { loading } ) => {
   return (
-    <ClipLoader 
+    <PulseLoader
       color='#4338ca'
       loading={ loading }
       cssOverride={ override }
-      size={ 150 }
     />
   );
 }
